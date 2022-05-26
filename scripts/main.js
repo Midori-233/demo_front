@@ -1,42 +1,104 @@
-let myImage = document.querySelector('img');
 
-myImage.onclick = function() {
-  let mySrc = myImage.getAttribute('src');
-  if (mySrc === 'images/firefox-icon.png') {
-    myImage.setAttribute ('src','images/firefox2.png');
-  } else {
-    myImage.setAttribute ('src','images/firefox-icon.png');
-  }
-};
+let bt1 = document.getElementById('bt1');
+let bt2 = document.getElementById('bt2');
+let bt3 = document.getElementById('bt3');
 
-let myButton = document.querySelector('button');
-let myHeading = document.querySelector('h1');
+let id = document.getElementById('id');
+let name = document.getElementById('name');
+let age = document.getElementById('age');
+let passwd = document.getElementById('passwd');
 
-function setUserName() {
-  let myName = prompt('请输入你的名字。');
-  if (!myName || myName === null) {
-    setUserName();
-  } else {
-    localStorage.setItem('name', myName);
-    myHeading.innerHTML = 'Mozilla 酷毙了，' + myName;
-  }
+bt1.onclick = function(){
+    fetch('http://127.0.0.1/user/getAllUser',{
+        method: 'GET'
+    })
+    .then(response => response.json())
+    //.then(data => console.log(data))
+    .then(data => document.querySelector("#table").innerHTML = getAllUser(data));
 }
 
-if (!localStorage.getItem('name')) {
-  setUserName();
-} else {
-  let storedName = localStorage.getItem('name');
-  myHeading.textContent = 'Mozilla 酷毙了，' + storedName;
+bt3.onclick = function(){
+    var str = {"id":id.value,"name":name.value,age:age.value,passwd:passwd.value}
+        console.log(JSON.stringify(str))
+    fetch('http://127.0.0.1/user/addUser',{
+        headers: {'Content-Type': 'application/json',},
+        method: 'POST',
+        body:JSON.stringify(str)
+    }).then(response => response.json())
+    .then(data => document.querySelector("#table").innerHTML = returnUser(data));
 }
 
-myButton.onclick = function() {
-  setUserName();
+function getAllUser(json) {
+	let rows = ""
+	//for(const json of jsonArray) {
+  	rows += `
+      <tr>
+      	<td>${"code:"}</td>
+      	<td>${json.code}</td>
+        </tr>
+        <tr>
+        <td>${"msg:"}</td>
+      	<td>${json.msg}</td>
+        </tr>
+        <tr>
+        <td>${"data:"}</td>
+      	<td>${"id"}</td>
+      	<td>${"name"}</td>
+      	<td>${"age"}</td>
+      	<td>${"passwd"}</td>
+        </tr>
+    `
+    for(const js of json.data) {
+        rows += `
+            <tr>
+             <td>${""}</td>
+      	     <td>${js.id}</td>
+      	     <td>${js.name}</td>
+      	     <td>${js.age}</td>
+      	     <td>${js.passwd}</td>
+
+            </tr>
+        `
+    }
+    return `<table>${rows}</table>`;
 }
 
-let myTime = document.querySelector('h2');
+function returnUser(json) {
+	let rows = ""
+	//for(const json of jsonArray) {
+  	rows += `
+      <tr>
+      	<td>${"code:"}</td>
+      	<td>${json.code}</td>
+        </tr>
+        <tr>
+        <td>${"msg:"}</td>
+      	<td>${json.msg}</td>
+        </tr>
+        <tr>
+        <td>${"data:"}</td>
+      	<td>${"id"}</td>
+      	<td>${"name"}</td>
+      	<td>${"age"}</td>
+      	<td>${"passwd"}</td>
+        </tr>
+    `
+    const js = json.data
+        rows += `
+            <tr>
+             <td>${""}</td>
+      	     <td>${js.id}</td>
+      	     <td>${js.name}</td>
+      	     <td>${js.age}</td>
+      	     <td>${js.passwd}</td>
 
-setInterval(function() {
-    myTime.innerHTML = "TIME:" + Date();
-}, 1000);
+            </tr>
+        `
+    return `<table>${rows}</table>`;
+}
+
+
+
+
 
 
