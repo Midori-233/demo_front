@@ -2,6 +2,9 @@
 let bt1 = document.getElementById('bt1');
 let bt2 = document.getElementById('bt2');
 let bt3 = document.getElementById('bt3');
+let bt4 = document.getElementById('bt3');
+let bt5 = document.getElementById('bt3');
+let bt6 = document.getElementById('bt3');
 
 let id = document.getElementById('id');
 let name = document.getElementById('name');
