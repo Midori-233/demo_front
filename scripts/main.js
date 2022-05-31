@@ -33,7 +33,6 @@ bt3.onclick = function(){
 
 function getAllUser(json) {
 	let rows = ""
-	//for(const json of jsonArray) {
   	rows += `
       <tr>
       	<td>${"code:"}</td>
@@ -59,7 +58,6 @@ function getAllUser(json) {
       	     <td>${js.name}</td>
       	     <td>${js.age}</td>
       	     <td>${js.passwd}</td>
-
             </tr>
         `
     }
@@ -68,7 +66,6 @@ function getAllUser(json) {
 
 function returnUser(json) {
 	let rows = ""
-	//for(const json of jsonArray) {
   	rows += `
       <tr>
       	<td>${"code:"}</td>
@@ -94,7 +91,6 @@ function returnUser(json) {
       	     <td>${js.name}</td>
       	     <td>${js.age}</td>
       	     <td>${js.passwd}</td>
-
             </tr>
         `
     return `<table>${rows}</table>`;
